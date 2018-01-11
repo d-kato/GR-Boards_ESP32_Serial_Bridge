@@ -15,7 +15,7 @@ GR-PEACHは``GR-WIRELESS CAMERA Shield``を接続することでESP32を追加�
 
 Windows10以外ご使用の場合、ドライバのインストールが必要となります。下記サイトのからドライバーをダウンロードできます。  
 
-https://os.mbed.com/docs/latest/tutorials/windows-serial-driver.html
+https://os.mbed.com/handbook/USBSerial
 
 但し、「署名なしドライバ」となっていますので、お使いのWindowsバージョンによってはそのままインストールすることはできません。お使いのPC毎に設定方法が異なるため、検索サイトで「署名なしドライバ」で検索してください。  
 
