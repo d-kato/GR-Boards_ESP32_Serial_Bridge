@@ -39,7 +39,7 @@ If you want to confirm the serial communication the terminal soft on your PC, pl
 Pressing `USER_BUTTON0` resets ESP32.
 
 ### Change to the Flash writing mode
-You can change ESP32 to the Flash writing mode by holding down `USER_BUTTON0` and push `RESET`. LED1 on the board lights during the write mode. In the flash writing mode, the LED1 lights up. To cancel the flash writing mode, please push `RESET` once more.  
+You can change ESP32 to the Flash writing mode by holding down `USER_BUTTON0` and connecting the USB cable. LED1 on the board lights during the write mode. In the flash writing mode, the LED1 lights up. To cancel the flash writing mode, please reconnect the USB cable again.  
 
 ###  How to Flash Download Tools
 Using ``esp32-at(ESP32 F/W update data by AT command)`` as example, this section is shown how to the "Flash Download Tools V3.6.2.2" for Windows PC.  

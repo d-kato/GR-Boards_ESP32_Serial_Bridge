@@ -33,7 +33,7 @@ https://os.mbed.com/handbook/USBSerial
 `USER_BUTTON0`を押すとESP32にリセットが入ります。  
 
 ### ESP32をFlash書き込みモードにする
-ESP32を書き込みモードにする際は、`USER_BUTTON0`を押しながら`RESET`を押してください。書き込みモードになるとボード上のLED1が光ります。書き込みモードを解除する場合はもう一度`RESET`を押してください。  
+ESP32を書き込みモードにする際は、`USER_BUTTON0`を押しながらUSBケーブルを接続してください。書き込みモードになるとボード上のLED1が光ります。書き込みモードを解除する場合はもう一度USBケーブルを接続しなおしてください。  
 
 ### Flash Download Toolsの使い方
 ``ESP32をATコマンド用のファームウェア「esp32-at」``の書き込みを例に、Windows PC版 Flash Download Tools V3.6.2.2の使い方を紹介します。下記より``Flash Download Tools (ESP8266 & ESP32)``をダウンロードしてください。  
