@@ -5,8 +5,12 @@ GR-LYCHEEはボード上にESP32が搭載されています。
 GR-PEACHは``GR-WIRELESS CAMERA Shield``を接続することでESP32を追加することができます。  
 
 ## 使い方
-コンパイル済みの``GR-Boards_ESP32_Serial_Bridgeバイナリファイル[GR-PEACH_ESP32_Serial_Bridge_for.bin, GR-LYCHEE_ESP32_Serial_Bridge.bin]``と``ESP32をATコマンド用のファームウェア「esp32-at」``が`docs\esp32-at_bin.zip`内に格納されています。  
-サンプルコードをそのまま使用する場合はプロジェクト内`docs\esp32-at_bin.zip`を展開し、お使いのボードに合わせて``GR-Boards_ESP32_Serial_Bridgeバイナリファイル``をボードに書き込んで使用してください。  
+以下のアイテムが`docs\ESP32_firmware.zip`の中に含まれています。
+- ``GR-LYCHEE_ESP32_Serial_Bridge.bin`` (GR-LYCHEE用)
+- ``GR-PEACH_ESP32_Serial_Bridge.bin`` (GR-PEACH用)
+- ``ESP32_firmware`` (ESP32用ファームウェア)
+
+サンプルコードをそのまま使用する場合はプロジェクト内`docs\ESP32_firmware.zip`を展開し、お使いのボードに合わせて``GR-xxxxx_ESP32_Serial_Bridge.bin``をボードに書き込んで使用してください。  
 
 ### シリアル設定
 ``MicroUSBコネクタ(RZ/A1 Ch.0)``をPCと接続して使用します。  
@@ -35,28 +39,46 @@ https://os.mbed.com/handbook/USBSerial
 ### ESP32をFlash書き込みモードにする
 ESP32を書き込みモードにする際は、`USER_BUTTON0`を押しながらUSBケーブルを接続してください。書き込みモードになるとボード上のLED1が光ります。書き込みモードを解除する場合はもう一度USBケーブルを接続しなおしてください。  
 
-### Flash Download Toolsの使い方
-``ESP32をATコマンド用のファームウェア「esp32-at」``の書き込みを例に、Windows PC版 Flash Download Tools V3.6.2.2の使い方を紹介します。下記より``Flash Download Tools (ESP8266 & ESP32)``をダウンロードしてください。  
+### ESP32ファムウェアのアップデート方法
+
+以下のファーウェアをボードに書き込んでください。
+- ``GR-LYCHEE_ESP32_Serial_Bridge.bin`` (GR-LYCHEE用)
+- ``GR-PEACH_ESP32_Serial_Bridge.bin`` (GR-PEACH用)
 
 Espressif’s official Flash Download Tools:  
 http://espressif.com/en/support/download/other-tools?keys=&field_type_tid%5B%5D=13
 
-
-`flash_download_tools_v3.6.2.2.zip`を展開し、`ESPFlashDownloadTool_v3.6.2.2.exe`を実行します。  
-
 ![](docs/img/esp32_tool_1.jpg)  
-*ESP32 DownloadTool* を選択します。  
 
-![](docs/img/esp32_tool_2.jpg)  
+![](docs/img/esp32_tool_2.png)  
 
-1. 書き込み用の.binファイルを設定します。  
-  ``ESP32をATコマンド用のファームウェア「esp32-at」``に書き換える場合は`docs\esp32-at_bin.zip`内の書き込み用の.binファイルを下記のように設定してください。  
-  bootloader.bin(0x1000)、partitions_at.bin(0x8000)、phy_init_data.bin(0xF000)、esp-at.bin(0x100000)、at_customize.bin(0x20000)、GattServiceExample.bin(0x21000)。  
-  左のチェックボックスにも忘れずにチェックを入れてください。  
-2. SPI SPEEDに*40MHz*を設定します。  
-3. SPI MODEに*DIO*を設定します。  
-4. FLASH SIZEに*32Mbit*を設定します。  
-5. COMに``MicroUSBコネクタ(RZ/A1 Ch.0)``に割り当たったCOMポートを設定します。  
-6. ボーレートを選択します。``921600bps``での書き込みを確認できていますが、書き込みに失敗するようでしたらボーレートを下げてください。
-7. ESP32を書き込みモードにします(上記"ESP32をFlash書き込みモードにする"を参照)。ターミナルソフトソフトで``MicroUSBコネクタ(RZ/A1 Ch.0)``に該当するCOMポートを開いている場合は、ターミナルソフトを終了させ、COMポートを開放してください。ツールのERASEボタンを押すと不要なデータの消去を開始します。上記図の緑色で「IDLE」と表示されている部分が「FINISH」になるまで待ってください。  
-8. `USER_BUTTON0`を押して、ESP32をリセットします。その後、ツールのSTARTボタンを押すと書き込みを開始します。上記図の緑色で「IDLE」と表示されている部分が「FINISH」になるまで待ってください。  
+設定は以下の通りです。ターミナルソフトでCOMポートを既に開いている場合は、ターミナルソフトを終了させてください。
+* SPI SPEED : ``40MHz``
+* SPI MODE : ``DIO``
+* FLASH SIZE : ``32Mbit``
+* COM : あたなのボードに割り当たったCOM
+* BAUD : ``460800`` (書き込みに失敗するようでしたらボーレートを下げてください)  
+
+アップデートファイルは``docs\ESP32_firmware.zip``の中にあります。
+
+|Path                                       |offset  |
+|:------------------------------------------|:-------|
+|0x1000_bootloader.bin                      |0x1000  |
+|0x20000_at_customize.bin                   |0x20000 |
+|0x21000_ble_data.bin                       |0x21000 |
+|0x24000_server_cert.bin                    |0x24000 |
+|0x26000_server_key.bin                     |0x26000 |
+|0x28000_server_ca.bin                      |0x28000 |
+|0x2a000_client_cert.bin                    |0x2a000 |
+|0x2c000_client_key.bin                     |0x2c000 |
+|0x2e000_client_ca.bin                      |0x2e000 |
+|0x30000_factory_param_lychee_and_peach.bin |0x30000 |
+|0xf000_phy_init_data.bin                   |0xf000  |
+|0x100000_esp-at.bin                        |0x100000|
+|0x8000_partitions_at.bin                   |0x8000  |
+
+手順:  
+1. `USER_BUTTON0`を押しながら、PCと``MicroUSB connector Ch.0``をUSBケーブルで接続します。
+2. ツールの``Erase``ボタンを押して、フラッシュ上の不要なデータを消去します。 終了すると、ツールの``IDLE``というラベルの付いた緑色の領域が``FINISH``に変わります。
+3. USBケーブルを取り外し、再度``USER_BUTTON0``を押しながらUSBケーブルを接続します。
+4. ツールの``START``ボタンを押して、書き込みを開始します。 終了すると、ツールの``IDLE``というラベルの付いた緑色の領域が``FINISH``に変わります。
